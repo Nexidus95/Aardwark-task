@@ -33,12 +33,12 @@
    <div v-if= "configurations.slots == 38" class="spinner">
      <img v-if="spinning" class="wheelSpin" src="./components/American.png">
      <img v-if="!spinning" class="wheelStill" src="./components/American.png">
-	 <div class="w3-display-middle w3-large" v-if="winning">Result: {{previous.result}}</div>
+   <div class="w3-display-middle w3-large" v-if="winning">Result: {{previous.result}}</div>
     </div>
     <div v-else-if= "configurations.slots == 37" class="spinner">
      <img v-if="spinning" class="wheelSpin" src="./components/Europe.png">
      <img v-if="!spinning" class="wheelStill" src="./components/Europe.png">
-	 <div class="w3-display-middle w3-large" v-if="winning">{{previous.result}}</div>
+     <div class="w3-display-middle w3-large" v-if="winning">Result: {{previous.result}}</div>
     </div>
   </div>
   <div class="eventDiv">
@@ -78,8 +78,8 @@ export default {
       intervals: null,
       nextgames: null,
       componentKey: 0,
-	  intervalas: null,
-	  winning: true
+      intervalas: null,
+      winning: true
     }
   },
   methods: {
@@ -155,7 +155,7 @@ export default {
     },
     counter () {
       this.intervalas = setInterval(() => {
-        if (this.fakecounter == 0) {
+        if (this.fakecounter === 0) {
           clearInterval(this.intervalas)
         } else {
           this.fakecounter--

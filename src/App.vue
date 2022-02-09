@@ -87,7 +87,7 @@ export default {
       this.componentKey += 1
     },
     MostWon () {
-	  clearInterval(this.intervalas)
+      clearInterval(this.intervalas)
       this.message = this.message + this.timestamp() + ' GET ../stats?limit=200\n'
       fetch(this.link + '/stats?limit=200')
         .then(response => response.json())
@@ -101,8 +101,8 @@ export default {
         })
     },
     GetConfiguration () {
-	  clearInterval(this.nextgames)
-	  clearInterval(this.intervalas)
+      clearInterval(this.nextgames)
+      clearInterval(this.intervalas)
       if (this.spinning) {
         this.spinningChange()
       }
@@ -125,7 +125,7 @@ export default {
     },
     GetNextgame () {
       clearInterval(this.nextgames)
-	  clearInterval(this.intervalas)
+      clearInterval(this.intervalas)
       this.message = this.message + this.timestamp() + ' Checking for new game\n'
       fetch(this.link + '/nextGame')
         .then(response => response.json())

@@ -16,10 +16,10 @@
        <th class = "cell-hot" colspan = "5">Hot</th>
      </tr>
       <th>Slot</th>
-      <td class = "slot" v-for="number in mostwon" v-bind:key="number" v-bind:style="{ backgroundColor: configurations.colors[number.result]}">{{configurations.results[number.result]}}</td>
+      <td class = "slot" v-for="number in mostwon" :key="number.result" v-bind:style="{ backgroundColor: configurations.colors[number.result]}">{{configurations.results[number.result]}}</td>
      <tr>
       <th>Hits</th>
-      <td v-for="number in mostwon" v-bind:key="number">{{number.count}}</td>
+      <td v-for="(number,index) in mostwon" :key="index">{{number.count}}</td>
      </tr>
     </tbody>
    </table>
@@ -28,7 +28,7 @@
   <div class = "gameboard">
    <h4>Gameboard</h4>
    <div class = "board">
-    <button v-btn-toggle="true" v-for="config in configurations.positionToId" v-bind:key="config" v-bind:style="{ backgroundColor: configurations.colors[config]}">{{configurations.results[config]}}</button>
+    <button v-for="config in configurations.positionToId" :key="config.id" v-bind:style="{ backgroundColor: configurations.colors[config]}">{{configurations.results[config]}}</button>
    </div>
    <div v-if= "configurations.slots == 38" class="spinner">
      <img v-if="spinning" class="wheelSpin" src="./components/American.png">
@@ -45,7 +45,7 @@
     <h4>Events</h4>
       <table class="eventTable" :key="componentKey">
         <tbody>
-          <tr class="eventTr" v-for="playedgames in events" v-if="playedgames" v-bind:key="playedgames">{{playedgames}}</tr>
+          <tr class="eventTr" v-for="playedgames in events" v-if="playedgames" :key="playedgames.id">{{playedgames}}</tr>
         </tbody>
       </table>
     </div>
@@ -87,6 +87,7 @@ export default {
       this.componentKey += 1
     },
     MostWon () {
+	  clearInterval(this.intervalas)
       this.message = this.message + this.timestamp() + ' GET ../stats?limit=200\n'
       fetch(this.link + '/stats?limit=200')
         .then(response => response.json())
@@ -100,6 +101,8 @@ export default {
         })
     },
     GetConfiguration () {
+	  clearInterval(this.nextgames)
+	  clearInterval(this.intervalas)
       if (this.spinning) {
         this.spinningChange()
       }
@@ -122,6 +125,7 @@ export default {
     },
     GetNextgame () {
       clearInterval(this.nextgames)
+	  clearInterval(this.intervalas)
       this.message = this.message + this.timestamp() + ' Checking for new game\n'
       fetch(this.link + '/nextGame')
         .then(response => response.json())
